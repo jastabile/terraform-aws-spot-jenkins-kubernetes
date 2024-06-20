@@ -1,4 +1,4 @@
-## Intro
+## Description
 This terraform creates a terraform cloud workspace and an AWS role to dynamically authenticate with AWS, so we can use terraform cloud state smoothly.
 
 We just have to set the env variables for AWS and terraform cloud.
