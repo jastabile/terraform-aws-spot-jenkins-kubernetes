@@ -16,8 +16,8 @@ export TFE_TOKEN=<token_terraform_cloud>
 
 2- Apply terraform
 ```
-terraform plan -var-file=example.tfvars -out=plan.out
-terraform apply plan.out
+terraform plan -var-file=example.tfvars 
+terraform apply -var-file=example.tfvars 
 ```
 
 3- Set cloud configuration on any terraform to use it
