@@ -78,9 +78,6 @@ module "eks" {
 
   tags = merge(var.tags, local.karpenter_discovery_tags)
 
-  # create_aws_auth_configmap = true
-  # manage_aws_auth_configmap = true
-
   # aws_auth_roles = [
   #   {
   #     rolearn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/openvpn-profile"
@@ -94,15 +91,6 @@ module "eks" {
   #   },
   # ]
 
-  # aws_auth_users = concat([{
-  #   userarn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
-  #   username = "aws-root"
-  #   groups   = ["system:masters"]
-  #   }], [for user in var.cluster_admin_users : {
-  #   userarn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/${user}"
-  #   username = "aws-${user}"
-  #   groups   = ["system:masters"] # TODO: granular access
-  # }])
 
   kms_key_administrators = [for user in var.cluster_admin_users :
     "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/${user}"
@@ -110,6 +98,26 @@ module "eks" {
 
   # aws_auth_accounts = [data.aws_caller_identity.current.account_id]
 }
+
+module "eks_aws-auth" {
+  source  = "terraform-aws-modules/eks/aws//modules/aws-auth"
+  version = "20.24.0"
+
+
+  manage_aws_auth_configmap = true
+
+
+  aws_auth_users = concat([{
+    userarn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
+    username = "aws-root"
+    groups   = ["system:masters"]
+    }], [for user in var.cluster_admin_users : {
+    userarn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/${user}"
+    username = "aws-${user}"
+    groups   = ["system:masters"] # TODO: granular access
+  }])
+}
+
 
 module "ebs_csi_irsa_role" {
   source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
