@@ -1,6 +1,4 @@
-# aws-spot-jenkins-kubernetes
-
-
+# Introduction
 This template create an EKS cluster with spot instances managed by karpenter and installs Jenkins configured to use pods as an agent that lives only for the time the job is being executed.
 
 The cluster is created enabling IRSA to allow the use of IAM roles directly from pods.
@@ -20,7 +18,7 @@ Change the `example.tfvars` file values to the one you want
 
 
 # Installation
-To deploy EKS with Jenkins, you need to set your env vars for aws: 
+To deploy you need to set your env vars for aws: 
 ```
 AWS_ACCESS_KEY_ID
 AWS_SECRET_ACCESS_KEY
@@ -32,9 +30,19 @@ In case you're using Terraform cloud:
 then run the following commands:
 ```
 terraform plan -var-file=example.tfvars
-terraform apply
+terraform apply -var-file=example.tfvars
 ```
 
+# Getting EKS credentials
+```
+aws eks update-kubeconfig --name <CLUSTER_NAME>
+```
+check if you're connected 
 
 ## Node pools
 To add more node pools create more resources "kubectl_manifest" "karpenter_node_pool" as in `karpenter.tf` file
+
+
+
+## TODO
+separar en carpetas lo de EKS por un lado y lo de jenkins por otro
