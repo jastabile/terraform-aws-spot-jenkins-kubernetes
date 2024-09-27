@@ -22,7 +22,6 @@ To deploy a new EKS with spot instances managed by karpenter follow instructions
 To remove all the resources created:
 ```
 helm delete jenkins -n jenkins
-kubectl delete pvc jenkins
 helm delete ingress-nginx -n ingress-nginx
 terraform destroy -var-file=example.tfvars
 ```
