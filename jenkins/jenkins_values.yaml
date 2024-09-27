@@ -1,0 +1,35 @@
+
+controller:
+  tag: "2.443-jdk11"
+  imagePullPolicy: "IfNotPresent"
+  
+  jenkinsUrl: <HOSTNAME>
+  
+  installPlugins:
+    - kubernetes:4290.v93ea_4b_b_26a_61
+    - workflow-aggregator:600.vb_57cdd26fdd7
+    - git:5.5.1
+    - configuration-as-code:1850.va_a_8c31d3158b_
+
+  podDisruptionBudget:
+    annotations: {}
+    apiVersion: policy/v1
+    enabled: true
+    labels: {}
+    minAvailable: "1"
+
+  # Initialize only on first install. Ensures plugins do not get updated inadvertently. Requires persistence.enabled to be set to true.
+  initializeOnce: true
+
+  JCasC:
+    # Setted false to persist configuration made in Jenkins UI
+    defaultConfig: false
+
+persistence:
+  enabled: true
+  storageClass: "gp2"
+
+backup:
+  # Backup must use RBAC
+  # So by enabling backup you are enabling RBAC specific for backup
+  enabled: false ## TODO: enable and configure backups based on values template https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/values.yaml 
