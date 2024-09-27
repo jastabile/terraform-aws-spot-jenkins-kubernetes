@@ -8,3 +8,7 @@ public_subnets  = ["10.40.128.0/19", "10.40.160.0/19"]
 
 cluster_admin_users = ["develop-game"]
 cluster_name = "test-cluster"
+
+tags = {
+  "env" = "test"
+}

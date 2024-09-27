@@ -22,5 +22,5 @@ module "vpc" {
     "karpenter.sh/discovery" = var.cluster_name
   }
 
-  tags = local.tags
+  tags = var.tags
 }

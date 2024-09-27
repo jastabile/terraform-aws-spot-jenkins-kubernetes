@@ -1,3 +1,5 @@
 secrets.tfvars
 .terraform
 .vscode
+
+jenkins_values.yaml

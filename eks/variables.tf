@@ -29,3 +29,9 @@ variable "cluster_admin_users" {
 variable "cluster_name" {
   type = string
 }
+
+variable "tags" {
+  type = map(string)
+  default = {}
+  description = "List of tags for every resource created"
+}
