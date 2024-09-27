@@ -23,6 +23,7 @@ To remove all the resources created:
 ```
 helm delete jenkins -n jenkins
 helm delete ingress-nginx -n ingress-nginx
+cd eks
 terraform destroy -var-file=example.tfvars
 ```
 
