@@ -1,6 +1,6 @@
 terraform {
   cloud {
-    organization = "sandbox-tfcloud-org"
+    organization = "test-tfcloud-org"
 
     workspaces {
       name = "my-aws-workspace"
